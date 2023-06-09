@@ -5,7 +5,6 @@ import com.example.Bookstore.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,12 +29,13 @@ public class AuthorService {
     }
 
     //update
-    public Author updateAuthor(Integer id, Author authorDetails) {
-        Author author = authorRepository.findById(id).get();
-        author.setFirstName(authorDetails.getFirstName());
-        author.setLastName(authorDetails.getLastName());
-        author.setBooks(authorDetails.getBooks());
-
+    public Optional<Author> updateAuthor(Integer id, Author authorDetails) {
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isPresent()) {
+            author.get().setFirstName(authorDetails.getFirstName());
+            author.get().setLastName(authorDetails.getLastName());
+            author.get().setBooks(authorDetails.getBooks());
+        }
         return author;
     }
 }

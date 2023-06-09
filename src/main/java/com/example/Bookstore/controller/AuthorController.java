@@ -23,7 +23,8 @@ public class AuthorController {
         return authorService.createAuthor(author);
     }
 
-    public Author replaceAuthor(@RequestBody Author newAuthor, @PathVariable Integer id) {
+    @PutMapping("/author")
+    public Optional<Author> replaceAuthor(@RequestBody Author newAuthor, @PathVariable Integer id) {
         return authorService.updateAuthor(id, newAuthor);
     }
 
