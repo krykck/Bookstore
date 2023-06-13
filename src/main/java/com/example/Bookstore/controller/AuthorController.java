@@ -18,12 +18,12 @@ public class AuthorController {
         return authorService.getAuthor(id);
     }
 
-    @PostMapping("/author")
+    @PostMapping("")
     public Author newAuthor(@RequestBody Author author) {
         return authorService.createAuthor(author);
     }
 
-    @PutMapping("/author")
+    @PutMapping("/{id}")
     public Optional<Author> replaceAuthor(@RequestBody Author newAuthor, @PathVariable Integer id) {
         return authorService.updateAuthor(id, newAuthor);
     }
