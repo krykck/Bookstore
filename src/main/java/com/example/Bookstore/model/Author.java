@@ -21,7 +21,5 @@ public class Author {
     private String firstName;
     @Column(name="lastName")
     private String lastName;
-    @Column(name="books")
-    private List<String> books;
 
 }

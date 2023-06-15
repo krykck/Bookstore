@@ -18,7 +18,7 @@ public class BookController {
         return bookService.getBook(id);
     }
 
-    @PostMapping("/book")
+    @PostMapping("/")
     public Book saveNewBook(@RequestBody Book book) {
         return bookService.createBook(book);
     }

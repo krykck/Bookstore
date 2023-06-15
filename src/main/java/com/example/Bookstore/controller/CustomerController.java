@@ -13,7 +13,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Optional<Customer> getCustomer(@PathVariable Integer id) {
         return customerService.getCustomer(id);
     }
@@ -23,12 +23,12 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public Optional<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
         return customerService.updateCustomer(customer, id);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable Integer id) {
         customerService.deleteCustomer(id);
     }

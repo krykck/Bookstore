@@ -34,7 +34,6 @@ public class AuthorService {
         if(author.isPresent()) {
             author.get().setFirstName(authorDetails.getFirstName());
             author.get().setLastName(authorDetails.getLastName());
-            author.get().setBooks(authorDetails.getBooks());
         }
         return author;
     }
