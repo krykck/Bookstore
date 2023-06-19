@@ -29,12 +29,14 @@ public class AuthorService {
     }
 
     //update
-    public Optional<Author> updateAuthor(Integer id, Author authorDetails) {
+    public Author updateAuthor(Integer id, Author authorDetails) {
         Optional<Author> author = authorRepository.findById(id);
         if(author.isPresent()) {
-            author.get().setFirstName(authorDetails.getFirstName());
-            author.get().setLastName(authorDetails.getLastName());
+            Author toBeUpdated = author.get();
+            toBeUpdated.setFirstName(authorDetails.getFirstName());
+            toBeUpdated.setLastName(authorDetails.getLastName());
+            return authorRepository.save(toBeUpdated);
         }
-        return author;
+        return null;
     }
 }

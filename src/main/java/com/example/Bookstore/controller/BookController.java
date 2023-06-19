@@ -18,13 +18,13 @@ public class BookController {
         return bookService.getBook(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Book saveNewBook(@RequestBody Book book) {
         return bookService.createBook(book);
     }
 
     @PutMapping("/{id}")
-    public Optional<Book> updateBook(@PathVariable Integer id, @RequestBody Book book) {
+    public Book updateBook(@PathVariable Integer id, @RequestBody Book book) {
         return bookService.updateBook(id, book);
     }
 

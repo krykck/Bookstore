@@ -20,15 +20,17 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public Optional<Book> updateBook(Integer id, Book newBook) {
-        Optional<Book> toBeUpdatedBook = bookRepository.findById(id);
-        if (toBeUpdatedBook.isPresent()) {
-            toBeUpdatedBook.get().setAuthor(newBook.getAuthor());
-            toBeUpdatedBook.get().setCategory(newBook.getCategory());
-            toBeUpdatedBook.get().setPrice(newBook.getPrice());
-            toBeUpdatedBook.get().setPublishedYear(newBook.getPublishedYear());
+    public Book updateBook(Integer id, Book newBook) {
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isPresent()) {
+            Book toBeUpdatedBook = book.get();
+            toBeUpdatedBook.setCategory(newBook.getCategory());
+            toBeUpdatedBook.setPrice(newBook.getPrice());
+            toBeUpdatedBook.setPublishedYear(newBook.getPublishedYear());
+
+            return bookRepository.save(toBeUpdatedBook);
         }
-        return toBeUpdatedBook;
+        return null;
     }
 
     public void deleteBook(Integer id) {

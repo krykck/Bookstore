@@ -18,17 +18,17 @@ public class AuthorController {
         return authorService.getAuthor(id);
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public Author newAuthor(@RequestBody Author author) {
         return authorService.createAuthor(author);
     }
 
     @PutMapping("/{id}")
-    public Optional<Author> replaceAuthor(@PathVariable Integer id, @RequestBody Author newAuthor) {
+    public Author replaceAuthor(@PathVariable Integer id, @RequestBody Author newAuthor) {
         return authorService.updateAuthor(id, newAuthor);
     }
 
-    @DeleteMapping("/author/{id}")
+    @DeleteMapping("/{id}")
     public void deleteAuthor(@PathVariable Integer id) {
         authorService.deleteAuthor(id);
     }

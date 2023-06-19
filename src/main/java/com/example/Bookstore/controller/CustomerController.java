@@ -24,7 +24,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public Optional<Customer> updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
+    public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
         return customerService.updateCustomer(customer, id);
     }
 

@@ -21,16 +21,19 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public Optional<Customer> updateCustomer(Customer customer, Integer id) {
-        Optional<Customer> customerToBeUpdated = customerRepository.findById(id);
-        if(customerToBeUpdated.isPresent()) {
-            customerToBeUpdated.get().setFirstName(customer.getFirstName());
-            customerToBeUpdated.get().setLastName(customer.getLastName());
-            customerToBeUpdated.get().setAddress(customer.getAddress());
-            customerToBeUpdated.get().setEmail(customer.getEmail());
+    public Customer updateCustomer(Customer newCustomer, Integer id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(customer.isPresent()) {
+            Customer customerToBeUpdated = customer.get();
+            customerToBeUpdated.setFirstName(newCustomer.getFirstName());
+            customerToBeUpdated.setLastName(newCustomer.getLastName());
+            customerToBeUpdated.setAddress(newCustomer.getAddress());
+            customerToBeUpdated.setEmail(newCustomer.getEmail());
+
+            return customerRepository.save(customerToBeUpdated);
         }
 
-        return customerToBeUpdated;
+        return null;
     }
 
     public void deleteCustomer(Integer id) {
