@@ -26,6 +26,8 @@ public class Book {
     private String category;
     @Column(name="price")
     private double price;
+    @Column(name="quantity")
+    private int quantity;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -48,8 +50,7 @@ public class Book {
                 ", publishedYear=" + publishedYear +
                 ", category='" + category + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantity +
                 '}';
     }
-
-
 }
