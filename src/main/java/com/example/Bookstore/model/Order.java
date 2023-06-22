@@ -21,7 +21,7 @@ public class Order {
     private int id;
 
     @Column(name="order_detail")
-    private String order_detail;
+    private String orderDetail;
     @Column(name="order_date")
     private Date orderDate;
     @Column(name="price")

@@ -24,7 +24,7 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         if(order.isPresent()) {
             Order orderToBeUpdated = order.get();
-            orderToBeUpdated.setOrder_detail(newOrder.getOrder_detail();
+            orderToBeUpdated.setOrder_detail(newOrder.getOrder_detail());
             orderToBeUpdated.setOrderDate(newOrder.getOrderDate());
             orderToBeUpdated.setPrice(newOrder.getPrice());
             return orderToBeUpdated;
