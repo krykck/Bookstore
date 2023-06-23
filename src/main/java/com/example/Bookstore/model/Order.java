@@ -1,5 +1,6 @@
 package com.example.Bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.Setter;
 import java.util.Date;
 
 
-@Table(name="order")
+@Table(name="orders")
 @Entity
 @Getter
 @Setter
@@ -20,8 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="order_detail")
-    private String orderDetail;
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name="order_date")
     private Date orderDate;
     @Column(name="price")
