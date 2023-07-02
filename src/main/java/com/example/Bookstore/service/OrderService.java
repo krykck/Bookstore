@@ -25,7 +25,7 @@ public class OrderService {
         if(order.isPresent()) {
             Order orderToBeUpdated = order.get();
             orderToBeUpdated.setOrderDate(newOrder.getOrderDate());
-            orderToBeUpdated.setPrice(newOrder.getPrice());
+            orderToBeUpdated.setTotalPrice(newOrder.getTotalPrice());
             return orderToBeUpdated;
         }
         return null;

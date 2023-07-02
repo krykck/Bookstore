@@ -21,6 +21,8 @@ public class OrderController {
 
     @PostMapping("")
     public Order postOrder(@RequestBody Order order) {
+        Double totalPrice = order.calculateTotalAmount(order);
+        order.setTotalPrice(totalPrice);
         return orderService.createOrder(order);
     }
 

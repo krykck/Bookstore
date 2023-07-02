@@ -41,6 +41,11 @@ public class Book {
     )
     private Set<Author> authors = new HashSet<>();
 
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>();
+
+
 
     @Override
     public String toString() {

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Table(name="orders")
@@ -22,8 +24,27 @@ public class Order {
     private int id;
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    @Column(name="order_date")
     private Date orderDate;
-    @Column(name="price")
-    private Double price;
+
+    private Double totalPrice;
+
+    public Double calculateTotalAmount(Order order) {
+        double totalAmount = 0;
+        for(Book book : books) {
+            totalAmount += book.getPrice() * book.getQuantity();
+        }
+        return totalAmount;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "order_book",
+        joinColumns = {
+            @JoinColumn(name = "order_id")
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "book_id")
+        }
+    )
+    private Set<Book> books = new HashSet<>();
+
 }
