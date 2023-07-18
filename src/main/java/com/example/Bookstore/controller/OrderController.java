@@ -1,12 +1,16 @@
 package com.example.Bookstore.controller;
 
+import com.example.Bookstore.dto.BookDto;
+import com.example.Bookstore.dto.BookOrderQuantity;
 import com.example.Bookstore.model.Book;
 import com.example.Bookstore.model.Order;
+import com.example.Bookstore.model.OrderBook;
 import com.example.Bookstore.service.BookService;
 import com.example.Bookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -26,17 +30,26 @@ public class OrderController {
     }
 
     @PostMapping("")
-    public Order postOrder(@RequestBody Order order) {
-        Double totalPrice = order.calculateTotalAmount(order);
-        HashSet<Book> books = (HashSet<Book>) order.getBooks();
+    public Order postOrder(@RequestBody BookDto bookDto) {
+        Order order = new Order();
+        order.setOrderDate(new Date());
+        for (BookOrderQuantity boq: bookDto.getBooks()) {
+            OrderBook orderBook = new OrderBook();
+            orderBook.setBook(bookService.getBook(boq.getId()).orElseThrow());
+            orderBook.setQuantity(boq.getQuantity());
+            order.getBooks().add(orderBook);
+        }
+        return orderService.createOrder(order);
+        /*Double totalPrice = order.calculateTotalAmount(order);
+        HashSet<OrderBook> books = (HashSet<OrderBook>) order.getBooks();
         HashSet<Book> temp = new HashSet<Book>();
-        for (Book b: books) {
-            Optional<Book> toAdd = bookService.getBook(b.getId());
+        for (OrderBook b: books) {
+            Optional<Book> toAdd = bookService.getBook(b.getBook().getId());
             toAdd.ifPresent(temp::add);
         }
         order.setBooks(temp);
         order.setTotalPrice(totalPrice);
-        return orderService.createOrder(order);
+        return orderService.createOrder(order);*/
     }
 
     @PutMapping("/id")

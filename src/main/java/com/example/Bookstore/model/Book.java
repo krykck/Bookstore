@@ -26,8 +26,7 @@ public class Book {
     private String category;
     @Column(name="price")
     private double price;
-    @Column(name="quantity")
-    private int quantity;
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -41,9 +40,9 @@ public class Book {
     )
     private Set<Author> authors = new HashSet<>();
 
-    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private Set<Order> orders = new HashSet<>();
+    private Set<OrderBook> orders = new HashSet<>();
 
 
 
@@ -55,7 +54,6 @@ public class Book {
                 ", publishedYear=" + publishedYear +
                 ", category='" + category + '\'' +
                 ", price=" + price +
-                ", quantity=" + quantity +
                 '}';
     }
 }

@@ -26,25 +26,15 @@ public class Order {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date orderDate;
 
-    private Double totalPrice;
+    private Double totalPrice = 10.0;
 
     public Double calculateTotalAmount(Order order) {
-        double totalAmount = 0;
-        for(Book book : books) {
-            totalAmount += book.getPrice() * book.getQuantity();
-        }
-        return totalAmount;
+        return 1.0;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "order_book",
-        joinColumns = {
-            @JoinColumn(name = "order_id")
-        },
-        inverseJoinColumns = {
-            @JoinColumn(name = "book_id")
-        }
+    @OneToMany(
+            mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true
     )
-    private Set<Book> books = new HashSet<>();
+    private Set<OrderBook> books = new HashSet<>();
 
 }
