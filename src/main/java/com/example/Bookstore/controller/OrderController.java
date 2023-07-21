@@ -5,9 +5,11 @@ import com.example.Bookstore.dto.BookOrderQuantity;
 import com.example.Bookstore.model.Book;
 import com.example.Bookstore.model.Order;
 import com.example.Bookstore.model.OrderBook;
+import com.example.Bookstore.model.OrderBookId;
 import com.example.Bookstore.service.BookService;
 import com.example.Bookstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,13 +32,18 @@ public class OrderController {
     }
 
     @PostMapping("")
+    @Transactional
     public Order postOrder(@RequestBody BookDto bookDto) {
         Order order = new Order();
         order.setOrderDate(new Date());
+        order = orderService.createOrder(order);
+
         for (BookOrderQuantity boq: bookDto.getBooks()) {
             OrderBook orderBook = new OrderBook();
+            orderBook.setId(new OrderBookId(boq.getId(), order.getId()));
             orderBook.setBook(bookService.getBook(boq.getId()).orElseThrow());
             orderBook.setQuantity(boq.getQuantity());
+            orderBook.setOrder(order);
             order.getBooks().add(orderBook);
         }
         return orderService.createOrder(order);
