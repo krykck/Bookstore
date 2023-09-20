@@ -1,4 +1,4 @@
-package com.example.Bookstore.filter;
+package com.example.Bookstore.config;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
