@@ -1,5 +1,6 @@
 package com.alibou.security.config;
 
+import com.example.Bookstore.config.JWTAuthenticationFilter;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +38,7 @@ import static org.springframework.http.HttpMethod.PUT;
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final JWTAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
 
