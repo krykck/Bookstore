@@ -6,13 +6,19 @@ import com.example.Bookstore.repository.UserRepository;
 import com.example.Bookstore.token.Token;
 import com.example.Bookstore.token.TokenRepository;
 import com.example.Bookstore.token.TokenType;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
+
+import org.springframework.http.HttpHeaders;
 
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,6 +94,34 @@ public class AuthenticationService {
         }
 
         tokenRepository.saveAll(validUsersTokens);
+
+    }
+
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        final String autHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+
+        if(autHeader == null || !autHeader.startsWith("Bearer ")) {
+            return;
+        }
+        refreshToken = autHeader.substring(7);
+        userEmail = jwtService.extractUserName(refreshToken);
+        if(userEmail != null) {
+            var user = userRepository.findUserByEmail(userEmail)
+                    .orElseThrow();
+            if(jwtService.isTokenValid(refreshToken, user)) {
+                var accessToken = jwtService.generateToken(user);
+                revokeAllUsersToken(user);
+                saveUserToken(user, accessToken);
+                var authResponse = AuthenticationResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .build();
+
+            }
+        }
 
     }
 }
