@@ -6,6 +6,7 @@ import com.example.Bookstore.repository.UserRepository;
 import com.example.Bookstore.token.Token;
 import com.example.Bookstore.token.TokenRepository;
 import com.example.Bookstore.token.TokenType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
@@ -119,7 +120,7 @@ public class AuthenticationService {
                         .accessToken(accessToken)
                         .refreshToken(refreshToken)
                         .build();
-
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
 
