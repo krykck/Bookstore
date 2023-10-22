@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 
 
@@ -27,10 +28,13 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private TokenRepository tokenRepository;
+    @Autowired
     private JwtService jwtService;
-
+    @Autowired
     private AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     public AuthenticationResponse register(RegisterRequest request) {

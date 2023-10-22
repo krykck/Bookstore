@@ -47,16 +47,6 @@ public class OrderController {
             order.getBooks().add(orderBook);
         }
         return orderService.createOrder(order);
-        /*Double totalPrice = order.calculateTotalAmount(order);
-        HashSet<OrderBook> books = (HashSet<OrderBook>) order.getBooks();
-        HashSet<Book> temp = new HashSet<Book>();
-        for (OrderBook b: books) {
-            Optional<Book> toAdd = bookService.getBook(b.getBook().getId());
-            toAdd.ifPresent(temp::add);
-        }
-        order.setBooks(temp);
-        order.setTotalPrice(totalPrice);
-        return orderService.createOrder(order);*/
     }
 
     @PutMapping("/id")

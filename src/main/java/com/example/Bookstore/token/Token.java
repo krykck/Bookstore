@@ -22,7 +22,7 @@ public class Token {
 
     public boolean revoked;
 
-    @Column
+    @Column(unique = true)
     public String token;
 
     @Enumerated

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-//add service annotation to make it a managed bean
+
 @Service
 public class JwtService {
     @Value("${application.security.jwt.secret-key}")
@@ -27,7 +27,7 @@ public class JwtService {
     @Value("${application.security.jwt.refresh-token.expiration}")
     private long refreshExpiration;
 
-    //before implementing extractUserName method we need to implement methods that extract claims
+
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -37,7 +37,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    //to get the claims we need Claims class from jsonWebToken
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()
