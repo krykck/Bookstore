@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/api/v1/auth/order")
 public class OrderController {
 
     @Autowired
