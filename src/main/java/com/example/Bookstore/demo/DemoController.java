@@ -17,4 +17,8 @@ public class DemoController {
         System.out.println("sdfsdfsdf");
     }
 
+    public void newMethod() {
+        System.out.println("aaaa");
+    }
+
 }
